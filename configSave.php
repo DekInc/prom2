@@ -5,6 +5,7 @@
 	$_SESSION["DuracionTarea"] = $_POST['duraciontarea'];
 	$_SESSION["Remuneracion"] = $_POST['remuneracion'];
 	$_SESSION["VelAnimacion"] = $_POST['VelAnimacion'];
+	$_SESSION["DiasPasados"] = 0;
 	$_SESSION["NumeroTrabajadores"] = $_POST['txtNumeroTrabajadores'];		
 	// $_SESSION["CapacidadMax"] = $_POST['submit'];
 	// $_SESSION["DuracionTarea"] = $_POST['submit'];

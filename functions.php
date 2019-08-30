@@ -15,6 +15,8 @@
 				if (count($ListDias) > 0 && isset($_GET['vuelta'])){					
 					$ListDias[count($ListDias) - 1]->Vuelta = $_GET['vuelta'];
 					SaveDaysToSession();
+					if ($_GET['vuelta'] == 1)
+						$_SESSION["DiasPasados"] = (int)$_SESSION["DiasPasados"] + 1;
 					echo 1;
 				}
 			break;
@@ -28,6 +30,21 @@
 					SaveDaysToSession();
 					echo 1;
 				}
+			break;
+			case 'GetNewTrabajos':
+				echo $_SESSION['trabajos'];
+				include 'classDia.php';
+				include 'classTrabajador.php';
+				GetDaysFromSession();
+				GetWorkersFromSession();
+				$ThisDay = $ListDias[count($ListDias) - 1]->Dia;
+				for($i = 0; $i < count($ListTrabajadores); $i++){
+					$ListTrabajadores[$i]->ListTrabajos
+				}				
+				if ((int)$_SESSION['trabajos'] > (int)$_SESSION["NumeroTrabajadores"])
+					$_SESSION['trabajos'] = (int)$_SESSION['trabajos'] - (int)$_SESSION["NumeroTrabajadores"];
+				else 
+					$_SESSION['trabajos'] = 0;	
 			break;
 		}
 	} else {

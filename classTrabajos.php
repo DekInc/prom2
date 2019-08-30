@@ -1,20 +1,14 @@
 <?php
-	session_start();
-	class Trabajos{		
+	session_start();	
+	$ListTrabajos = [];	
+	class Trabajos{
+		public $NombreTrabajador = '';
 		public $Dia = null;
 		public $Calificacion = 0;
-		public function __construct($Dia_, $Calificacion_){			
+		public function __construct($NombreTrabajador_, $Dia_, $Calificacion_){
+			$this->NombreTrabajador = $NombreTrabajador_;
 			$this->Dia = $Dia_;
 			$this->Calificacion = $Calificacion_;
-		}
-	}
-	$ListTrabajadores = [];	
-	class Trabajador{
-		public $Nombre = '';
-		public $Salario = 0.0;
-		public $ListTrabajos = null;
-		public function __construct($Nombre_){
-			$this->Nombre = $Nombre_;
 		}
 	}
 	function AddNewWorker($Nombre_) {

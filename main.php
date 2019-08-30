@@ -1,6 +1,9 @@
 <?php
 	session_start();
-	$tottrabajo = $_SESSION["trabajos"];
+	if (isset($_SESSION["trabajos"]))
+		$tottrabajo = $_SESSION["trabajos"];
+	else
+		$tottrabajo = 100;
 	// echo $_SESSION["VelAnimacion"];
 	 
 	//AÑO 1 ############################################
@@ -124,7 +127,7 @@
 		</div>		
         <div class="fixed-bottom footer2">
             <hr />
-            <p>&copy; 2019 - UDB 2019</p>
+            <p>&copy; 2019 - 2019</p>
         </div>        
     </div>    
 	<script type="text/javascript">
@@ -132,7 +135,9 @@
 		var capacidadMax = 0;
 		var duracionTarea = 0;
 		var maxTareasXDia = 0;
-		var diaActual = 0;
+		var diaActual = null;
+		var trabajos = 0;
+		var numeroTrabajadores = 0;
 		//FUNCION GRAFICO TRABAJOS X TIEMPO ######################################################################
 		function draw1() {
 			var data = new google.visualization.DataTable();
@@ -233,10 +238,16 @@
 			capacidadMax = await getSessionVarAjaxPromise('CapacidadMax');
 			duracionTarea = await getSessionVarAjaxPromise('DuracionTarea');
 			diaActual = await getFunctionAjaxPromise('GetActualDay');
+			trabajos = await getFunctionAjaxPromise('GetNewTrabajos');
+			numeroTrabajadores = await getSessionVarAjaxPromise('NumeroTrabajadores');
+			if (numeroTrabajadores > trabajos){
+				mensajeApp('Información', 'Ya no hay más trabajos, fin de la simulación.');
+				return;
+			}
 			maxTareasXDia = capacidadMax / duracionTarea;
 			$('#spanDia').html(diaActual.Dia);
 			$('#spanVuelta').html(diaActual.Vuelta);
-			res = await getFunctionAjaxPromise('GetActualDay');
+			
 			if (diaActual.Vuelta < maxTareasXDia){
 				res = await getFunctionAjaxPromise('AddVueltaActualDay', '&vuelta=' + (parseInt(diaActual.Vuelta) + 1));				
 			} else {
