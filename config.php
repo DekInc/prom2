@@ -1,7 +1,7 @@
 <?php
 session_start();
 if(!isset($_SESSION["newsession"])){
-	$_SESSION["trabajos"] = 300;
+	$_SESSION["trabajos"] = 0;
     $_SESSION["CapacidadMax"] = 8;
     $_SESSION["DuracionTarea"] = 2;
     $_SESSION["Remuneracion"] = 10;
@@ -9,7 +9,7 @@ if(!isset($_SESSION["newsession"])){
     $_SESSION["CapacidadMax"] = 8;
     $_SESSION["DuracionTarea"] = 2;
     $_SESSION["Trabajoefectivo"] = 100;
-    $_SESSION["NumeroTrabajadores"] = 1;
+    $_SESSION["NumeroTrabajadores"] = 0;
     $_SESSION["ListTrabajadores"] = '';
 }
 ?>

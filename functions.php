@@ -39,7 +39,7 @@
 				}
 			break;
 			case 'GetNewTrabajos':
-				echo $_SESSION['trabajos'];
+				echo $_SESSION['trabajos'];				
 				include 'classDia.php';
 				include 'classTrabajador.php';
 				GetDaysFromSession();
@@ -47,6 +47,13 @@
 				$ThisDay = $ListDias[count($ListDias) - 1];
 				$NumeroTrabajadores = (int)$_SESSION["NumeroTrabajadores"];
 				$BaseCrecimiento = (((int)$_SESSION["CapacidadMax"] / (int)$_SESSION["DuracionTarea"]) * (int)$_SESSION["NumeroTrabajadores"]) * 30;
+				//Primer inicialización basada en 1 trabajador
+				if ($BaseCrecimiento == 0) {
+					$BaseCrecimiento = 120;
+					addnewrandomworkers(1);
+					SaveWorkersToSession();
+					$_SESSION['trabajos'] = $BaseCrecimiento;
+				}
 				$_SESSION["BaseCrecimiento"] = $BaseCrecimiento;
 				for($i = 0; $i < count($ListTrabajadores); $i++){
 					if ($ListTrabajadores[$i]->Activo) {
@@ -78,21 +85,21 @@
 					}
 					AddTrabajadorXMes(($ListTrabajadoresXMes[count($ListTrabajadoresXMes) - 1]->x + 1), (int)$TrabajadoresActivosXMes);
 				}
+				//Operación de incrementar o disminuir los trabajos, onda sinuidal...
 				if (substr($ThisDay->Dia, 0, 2 ) === "01" && count($ListTrabajosXMes) > 1 && $ThisDay->Vuelta == 1){
-					$SeSube = rand(1, 10);
+					$SeSube = rand(1, 2);
 					if (($ListTrabajadoresXMes[count($ListTrabajadoresXMes) - 1]->x) == 12) {
 						if ($_SESSION['trabajos'] > $BaseCrecimiento)
 							$_SESSION['trabajos'] = $_SESSION['trabajos'] - $_SESSION['trabajos'] * (rand(40, 80) / 100);
 						else
 							$_SESSION['trabajos'] = $_SESSION['trabajos'] - $_SESSION['trabajos'] * (rand(5, 15) / 100);
 					} else {						
-						if ($SeSube > 2 && $_SESSION['trabajos'] < 1200){
-							//$_SESSION['trabajos'] = $BaseCrecimiento;
+						if ($SeSube == 2){
 							$_SESSION['trabajos'] = $_SESSION['trabajos'] + $BaseCrecimiento * (rand(100, 140) / 100);
 						} else if ($_SESSION['trabajos'] > $BaseCrecimiento) {
 							$_SESSION['trabajos'] = $_SESSION['trabajos'] - $_SESSION['trabajos'] * (rand(1, 10) /100);
 						} else {
-							$_SESSION['trabajos'] = $_SESSION['trabajos'] + $BaseCrecimiento * (rand(20, 60) / 100);
+							$_SESSION['trabajos'] = $_SESSION['trabajos'] - $BaseCrecimiento * (rand(10, 40) / 100);
 						}
 					}
 					//Capacidad operativa

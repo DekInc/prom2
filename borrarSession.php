@@ -9,7 +9,7 @@ session_unset();
 session_destroy();
 ?>
 <script>
-	location.href = 'index.php';
+	location.href = 'config.php';
 </script>
 </body>
 </html>

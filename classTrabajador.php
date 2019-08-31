@@ -1,5 +1,15 @@
 <?php
 	session_start();
+	class Salario {
+		public $DiaStr = '';
+		public $Salario = 0.0;
+		public $Calificacion = 0;
+		public function __construct($Dia_, $Salario_, $Calificacion_){
+			$this->DiaStr = $Dia_;
+			$this->Salario = $Salario_;
+			$this->Calificacion = $Calificacion_;
+		}
+	}
 	class Mes {
 		public $x = 1;
 		public $y = 0;
@@ -22,12 +32,22 @@
 	class Trabajador{
 		public $Nombre = '';
 		public $Activo = true;
+		public $Suspendido = false;
 		public $Salario = 0.0;		
 		public $ListTrabajos = null;
+		public $ListSalarios = null;
 		public function __construct($Nombre_){
 			$this->Nombre = $Nombre_;
 		}
-	}
+		function CalcSalario(){
+			global $ListTrabajos;			
+			global $ListSalarios;
+			$ListSalarios = [];
+			for($i = 0; $i < count($ListTrabajos); $i++){
+				$ListSalarios[] = new Salario($ListTrabajos[$i]->Dia.Dia, $_SESSION["Remuneracion"], $ListTrabajos[$i]->Calificacion);
+			}
+		}
+	}	
 	function AddNewWorker($Nombre_) {
 		global $ListTrabajadores;
 		$ListTrabajadores[] = new Trabajador($Nombre_);

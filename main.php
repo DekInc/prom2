@@ -145,6 +145,9 @@
 						}],
 						yAxes: [{
 							display: true,
+							ticks: {
+								beginAtZero: true
+							},
 							scaleLabel: {
 								display: true,
 								labelString: 'Trabajadores'
