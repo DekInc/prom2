@@ -72,6 +72,20 @@
 									$NumeroTrabajadores++;
 								}
 							}
+							if (
+								($ListTrabajadores[$i]->ListTrabajos[count($ListTrabajadores[$i]->ListTrabajos) - 1]->Calificacion == 2
+									|| $ListTrabajadores[$i]->ListTrabajos[count($ListTrabajadores[$i]->ListTrabajos) - 1]->Calificacion == 3
+								)
+								&& ($ListTrabajadores[$i]->ListTrabajos[count($ListTrabajadores[$i]->ListTrabajos) - 2]->Calificacion == 2
+									|| $ListTrabajadores[$i]->ListTrabajos[count($ListTrabajadores[$i]->ListTrabajos) - 2]->Calificacion == 3
+								)
+							) {
+								$ListTrabajadores[$i]->Activo = false;
+								if ($_SESSION['trabajos'] > $BaseCrecimiento){
+									addnewrandomworkers(1);									
+									$NumeroTrabajadores++;
+								}
+							}
 						}
 					} else $NumeroTrabajadores--;
 				}
