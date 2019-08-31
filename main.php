@@ -25,9 +25,9 @@
 					<div class="col-1 normalText">
 						Vuelta:<br /><span id="spanVuelta" class="spanDia">0</span>
 					</div>
-					<div class="col-1 normalText">
+					<!-- <div class="col-1 normalText">
 						Trabajos:<br /><span id="spanTrabajos" class="spanDia">0</span>
-					</div>
+					</div>-->
 					<div class="col-1 normalText">
 						Total días:<br /><span id="spanTotDias" class="spanDia">0</span>
 					</div>
