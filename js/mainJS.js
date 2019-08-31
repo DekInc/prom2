@@ -98,7 +98,7 @@ function getSessionVarAjax(varName, successFunc) {
         url: 'getSessionVar.php?var=' + varName,
         success: function(data){
 			if (data === ''){
-				mensajeApp('Error', 'No se han establecido los parámetros iniciales');
+				mensajeApp('Error', '1. No se han establecido los parámetros iniciales. varName = ' + varName);
 				return;
 			} else {
 				var jsonData = JSON.parse(data);
@@ -119,7 +119,7 @@ function getSessionVarAjaxPromise(varName) {
 			url: 'getSessionVar.php?var=' + varName,
 			success: function(data){
 				if (data === ''){
-					mensajeApp('Error', 'No se han establecido los parámetros iniciales');
+					mensajeApp('Error', '2. No se han establecido los parámetros iniciales. varName = ' + varName);
 					return;
 				} else {
 					var jsonData = JSON.parse(data);					
@@ -139,7 +139,7 @@ function getFunctionAjax(functionName, successFunc) {
         url: 'functions.php?function=' + functionName,
         success: function(data){
 			if (data === ''){
-				mensajeApp('Error', 'No se han establecido los parámetros iniciales');
+				mensajeApp('Error', '3. No se han establecido los parámetros iniciales. functionName = ' + functionName);
 				return;
 			} else {
 				var jsonData = JSON.parse(data);
@@ -160,7 +160,7 @@ function getFunctionAjaxPromise(functionName, params = '') {
 			url: 'functions.php?function=' + functionName + params,
 			success: function(data){
 				if (data === ''){
-					mensajeApp('Error', 'No se han establecido los parámetros iniciales');
+					mensajeApp('Error', '4. No se han establecido los parámetros iniciales. functionName = ' + functionName);
 					return;
 				} else {
 					var jsonData = JSON.parse(data);

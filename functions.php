@@ -58,6 +58,8 @@
 				for($i = 0; $i < count($ListTrabajadores); $i++){
 					if ($ListTrabajadores[$i]->Activo) {
 						$ListTrabajadores[$i]->ListTrabajos[] = new Trabajos($ThisDay, GetScore());
+						//call_user_func(array($ListTrabajadores[$i], 'CalcSalario'));
+						// $this->ListTrabajadores[$i]->CalcSalario();
 						if (count($ListTrabajadores[$i]->ListTrabajos) > 1){
 							if (
 								$ListTrabajadores[$i]->ListTrabajos[count($ListTrabajadores[$i]->ListTrabajos) - 1]->Calificacion == 1
