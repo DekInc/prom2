@@ -141,7 +141,10 @@
 							scaleLabel: {
 								display: true,
 								labelString: 'Meses'
-							}
+							},
+							ticks: {
+								beginAtZero: false
+							},
 						}],
 						yAxes: [{
 							display: true,
@@ -198,13 +201,19 @@
 							scaleLabel: {
 								display: true,
 								labelString: 'Meses'
-							}
+							},
+							ticks: {
+								beginAtZero: true
+							},
 						}],
 						yAxes: [{
 							display: true,
 							scaleLabel: {
 								display: true,
 								labelString: 'Trabajos'
+							},
+							ticks: {
+								beginAtZero: true
 							}
 						}]
 					},
@@ -229,7 +238,7 @@
 			$('#spanTrabajos').html(trabajos);
 			$('#spanTotDias').html(diasPasados);
 			
-			if (numeroTrabajadores > trabajos){
+			if (trabajos < 1){
 				mensajeApp('Información', 'Ya no hay más trabajos, fin de la simulación.');
 				continuar = false;
 				return;

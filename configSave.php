@@ -7,6 +7,7 @@
 	include 'classDia.php';	
 	
 	$_SESSION["trabajos"] = $_POST['numerotrabajos'];
+	$_SESSION["MaxTrabajos"] = $_POST['txtMaxTrabajos'];
 	$_SESSION["BaseCrecimiento"] = 0;
 	$_SESSION["CapacidadMax"] = $_POST['CapacidadMaxdiaria'];
 	$_SESSION["DuracionTarea"] = $_POST['duraciontarea'];

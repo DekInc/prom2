@@ -38,22 +38,23 @@
 					echo 1;
 				}
 			break;
-			case 'GetNewTrabajos':
-				echo $_SESSION['trabajos'];				
+			case 'GetNewTrabajos':				
 				include 'classDia.php';
 				include 'classTrabajador.php';
 				GetDaysFromSession();
 				GetWorkersFromSession();
+				//Primer inicialización basada en 1 trabajador
+				// if ($_SESSION["NumeroTrabajadores"] == 0) {					
+					// // addnewrandomworkers(1);
+					// // SaveWorkersToSession();
+					// $_SESSION['MaxTrabajos'] = $_SESSION['trabajos'];
+					// $_SESSION['trabajos'] = 180;
+					// // $_SESSION["NumeroTrabajadores"] = 1;
+				// }
+				echo $_SESSION['trabajos'];
 				$ThisDay = $ListDias[count($ListDias) - 1];
 				$NumeroTrabajadores = (int)$_SESSION["NumeroTrabajadores"];
-				$BaseCrecimiento = (((int)$_SESSION["CapacidadMax"] / (int)$_SESSION["DuracionTarea"]) * (int)$_SESSION["NumeroTrabajadores"]) * 30;
-				//Primer inicialización basada en 1 trabajador
-				if ($BaseCrecimiento == 0) {
-					$BaseCrecimiento = 120;
-					addnewrandomworkers(1);
-					SaveWorkersToSession();
-					$_SESSION['trabajos'] = $BaseCrecimiento;
-				}
+				$BaseCrecimiento = (((int)$_SESSION["CapacidadMax"] / (int)$_SESSION["DuracionTarea"]) * (int)$_SESSION["NumeroTrabajadores"]) * 30;				
 				$_SESSION["BaseCrecimiento"] = $BaseCrecimiento;
 				for($i = 0; $i < count($ListTrabajadores); $i++){
 					if ($ListTrabajadores[$i]->Activo) {
@@ -77,8 +78,10 @@
 				SaveWorkersToSession();
 				GetTrabajadorXMes();
 				GetTrabajosXMes();
-				if (count($ListTrabajadoresXMes) == 0)
+				if (count($ListTrabajadoresXMes) == 0){
+					// AddTrabajadorXMes(0, 0);
 					AddTrabajadorXMes(1, (int)$_SESSION["NumeroTrabajadores"]);
+				}
 				else if (substr($ThisDay->Dia, 0, 2 ) === "01" && $ThisDay->Vuelta == 1) {
 					$TrabajadoresActivosXMes = 0;
 					for($i = 0; $i < count($ListTrabajadores); $i++){
@@ -92,20 +95,20 @@
 					$SeSube = rand(1, 2);
 					if (($ListTrabajadoresXMes[count($ListTrabajadoresXMes) - 1]->x) == 12) {
 						if ($_SESSION['trabajos'] > $BaseCrecimiento)
-							$_SESSION['trabajos'] = $_SESSION['trabajos'] - $_SESSION['trabajos'] * (rand(40, 80) / 100);
+							$_SESSION['trabajos'] = $_SESSION['trabajos'] - $_SESSION['trabajos'] * (rand(10, 40) / 100);
 						else
 							$_SESSION['trabajos'] = $_SESSION['trabajos'] - $_SESSION['trabajos'] * (rand(5, 15) / 100);
 					} else {						
-						if ($SeSube == 2){
-							$_SESSION['trabajos'] = $_SESSION['trabajos'] + $BaseCrecimiento * (rand(100, 140) / 100);
+						if ($SeSube > 1){
+							$_SESSION['trabajos'] = (int)$_SESSION["NumeroTrabajadores"] * ($_SESSION['trabajos'] + $BaseCrecimiento * (rand(120, 140) / 100));
 						} else if ($_SESSION['trabajos'] > $BaseCrecimiento) {
-							$_SESSION['trabajos'] = $_SESSION['trabajos'] - $_SESSION['trabajos'] * (rand(1, 10) /100);
+							$_SESSION['trabajos'] = (int)$_SESSION["NumeroTrabajadores"] * ($_SESSION['trabajos'] + $BaseCrecimiento * (rand(40, 100) /100));
 						} else {
-							$_SESSION['trabajos'] = $_SESSION['trabajos'] - $BaseCrecimiento * (rand(10, 40) / 100);
+							$_SESSION['trabajos'] = (int)$_SESSION["NumeroTrabajadores"] * ($_SESSION['trabajos'] + $BaseCrecimiento * (rand(60, 100) / 100));
 						}
 					}
 					//Capacidad operativa
-					if ($_SESSION['trabajos'] < ($BaseCrecimiento * 0.6)) {
+					if ($_SESSION['trabajos'] < ($_SESSION["MaxTrabajos"] * 0.5)) {
 						$z = 0;
 						$TrabajadorADesactivar = null;
 						$ContTrabajadoresActivos = 0;
@@ -123,7 +126,7 @@
 							SaveWorkersToSession();
 						}
 					}
-					else if ($_SESSION['trabajos'] > ($BaseCrecimiento * 3.0)){
+					else if ($_SESSION['trabajos'] > ($_SESSION["MaxTrabajos"] * 0.5)){
 						addnewrandomworkers(1);
 						saveworkerstosession();
 						$_SESSION["NumeroTrabajadores"] = $_SESSION["NumeroTrabajadores"] + 1;
@@ -143,9 +146,17 @@
 						// AddNewRandomWorkers(1);
 						// SaveWorkersToSession();
 					// }
+					if ($_SESSION['trabajos'] >= $_SESSION['MaxTrabajos'])
+						$_SESSION['trabajos'] = $_SESSION['MaxTrabajos'] * (rand(5, 10) / 10);					
 				}
-				if (count($ListTrabajosXMes) == 0)
+				if (substr($ThisDay->Dia, 0, 2 ) === "15" && count($ListTrabajosXMes) > 1 && $ThisDay->Vuelta == 1){
+					if($_SESSION['trabajos'] < $_SESSION['MaxTrabajos'] * 0.36) 
+						$_SESSION['trabajos'] = $_SESSION['MaxTrabajos'] * (rand(5, 10) / 10);
+				}
+				if (count($ListTrabajosXMes) == 0) {
+					AddTrabajosXMes(0, 0);
 					AddTrabajosXMes(1, (int)$_SESSION["trabajos"]);
+				}
 				else if (substr($ThisDay->Dia, 0, 2 ) === "01" && $ThisDay->Vuelta == 1){
 					AddTrabajosXMes(($ListTrabajosXMes[count($ListTrabajosXMes) - 1]->x + 1), (int)$_SESSION["trabajos"]);
 				}
