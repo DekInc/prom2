@@ -1,15 +1,15 @@
 <?php
 session_start();
 if(!isset($_SESSION["newsession"])){
-	$_SESSION["trabajos"] = 100;
+	$_SESSION["trabajos"] = 300;
     $_SESSION["CapacidadMax"] = 8;
     $_SESSION["DuracionTarea"] = 2;
     $_SESSION["Remuneracion"] = 10;
-    $_SESSION["VelAnimacion"] = 1000;
+    $_SESSION["VelAnimacion"] = 1;
     $_SESSION["CapacidadMax"] = 8;
     $_SESSION["DuracionTarea"] = 2;
     $_SESSION["Trabajoefectivo"] = 100;
-    $_SESSION["NumeroTrabajadores"] = 5;
+    $_SESSION["NumeroTrabajadores"] = 1;
     $_SESSION["ListTrabajadores"] = '';
 }
 ?>

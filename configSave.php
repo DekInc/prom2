@@ -1,6 +1,13 @@
 <?php
 	session_start();
+	session_unset(); 
+	session_destroy();
+	session_start();
+	include 'classTrabajador.php';
+	include 'classDia.php';	
+	
 	$_SESSION["trabajos"] = $_POST['numerotrabajos'];
+	$_SESSION["BaseCrecimiento"] = 0;
 	$_SESSION["CapacidadMax"] = $_POST['CapacidadMaxdiaria'];
 	$_SESSION["DuracionTarea"] = $_POST['duraciontarea'];
 	$_SESSION["Remuneracion"] = $_POST['remuneracion'];
@@ -12,13 +19,11 @@
 	$_SESSION["Trabajoefectivo"] = $_POST['trabajoefectivo'];
 	$_SESSION["newsession"] = true;
 	$_SESSION["saveddata"] = true;
-	unset($_POST['submit']);
+	unset($_POST['submit']);	
 	
-	include 'classTrabajador.php';
 	AddNewRandomWorkers($_SESSION["NumeroTrabajadores"]);
-	SaveWorkersToSession();	
+	SaveWorkersToSession();		
 	
-	include 'classDia.php';
 	$NewDay = new Dia(date("d/m/Y"), 1);
 	AddNewDay($NewDay);
 	SaveDaysToSession();

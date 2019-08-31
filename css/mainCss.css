@@ -162,3 +162,9 @@ body {
 	font-size: 14pt;
 	font-weight: bold;
 }
+#chartTrabajadores{
+	/* max-height: 30vh; */
+}
+#chartTrabajos{
+	/* max-height: 30vh; */
+}

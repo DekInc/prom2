@@ -21,4 +21,7 @@
 		global $ListDias;
 		$ListDias = json_decode($_SESSION['ListDias']);
 	}
+	function ResetDaysFromSession() {
+		$_SESSION['ListDias'] = 0;
+	}
 ?>

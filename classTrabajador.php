@@ -1,5 +1,13 @@
 <?php
 	session_start();
+	class Mes {
+		public $x = 1;
+		public $y = 0;
+		public function __construct($Mes_, $Cantidad_){
+			$this->x = $Mes_;
+			$this->y = $Cantidad_;
+		}
+	}
 	class Trabajos{		
 		public $Dia = null;
 		public $Calificacion = 0;
@@ -8,10 +16,13 @@
 			$this->Calificacion = $Calificacion_;
 		}
 	}
-	$ListTrabajadores = [];	
+	$ListTrabajadores = [];
+	$ListTrabajadoresXMes = [];
+	$ListTrabajosXMes = [];
 	class Trabajador{
 		public $Nombre = '';
-		public $Salario = 0.0;
+		public $Activo = true;
+		public $Salario = 0.0;		
 		public $ListTrabajos = null;
 		public function __construct($Nombre_){
 			$this->Nombre = $Nombre_;
@@ -20,7 +31,6 @@
 	function AddNewWorker($Nombre_) {
 		global $ListTrabajadores;
 		$ListTrabajadores[] = new Trabajador($Nombre_);
-		//print_r($ListTrabajadores);
 	}
 	function AddNewRandomWorkers($Num) {
 		global $ListTrabajadores;
@@ -31,13 +41,50 @@
 	}
 	function SaveWorkersToSession() {
 		global $ListTrabajadores;
-		$_SESSION['ListTrabajadores'] = json_encode($ListTrabajadores);
-		//print_r($ListTrabajadores);
-		//echo serialize($ListTrabajadores) . '<br>';
+		$_SESSION['ListTrabajadores'] = json_encode($ListTrabajadores);		
 	}
 	function GetWorkersFromSession() {
 		global $ListTrabajadores;
 		$ListTrabajadores = json_decode($_SESSION['ListTrabajadores']);
+	}
+	function GetScore(){
+		$Random = rand(1, 100);
+		if ($Random > 0 && $Random < 3)
+			return 1;
+		if ($Random > 2 && $Random < 11)
+			return rand(2, 3);
+		if ($Random > 10 && $Random < 101)
+			return rand(4, 5);
+	}
+	function AddTrabajadorXMes($Mes_, $NumTrab) {
+		global $ListTrabajadoresXMes;
+		$ListTrabajadoresXMes[] = new Mes($Mes_, $NumTrab);
+	}
+	function SaveTrabajadorXMes() {
+		global $ListTrabajadoresXMes;
+		$_SESSION['ListTrabajadoresXMes'] = json_encode($ListTrabajadoresXMes);		
+	}
+	function GetTrabajadorXMes() {
+		global $ListTrabajadoresXMes;
+		$ListTrabajadoresXMes = json_decode($_SESSION['ListTrabajadoresXMes']);
+	}
+	function ResetTrabajadorXMes() {
+		$_SESSION['ListTrabajadoresXMes'] = [];
+	}
+	function AddTrabajosXMes($Mes_, $NumTrab) {
+		global $ListTrabajosXMes;
+		$ListTrabajosXMes[] = new Mes($Mes_, $NumTrab);
+	}
+	function SaveTrabajosXMes() {
+		global $ListTrabajosXMes;
+		$_SESSION['ListTrabajosXMes'] = json_encode($ListTrabajosXMes);		
+	}
+	function GetTrabajosXMes() {
+		global $ListTrabajosXMes;
+		$ListTrabajosXMes = json_decode($_SESSION['ListTrabajosXMes']);
+	}
+	function ResetTrabajosXMes() {
+		$_SESSION['ListTrabajosXMes'] = [];
 	}
 	//Testing
 	//AddNewRandomWorkers(10);

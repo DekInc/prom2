@@ -13,7 +13,7 @@
         <?php include 'indexHi.php' ?>
         <div class="fixed-bottom footer2">
             <hr />
-            <p>&copy; 2019 - 2019</p>
+            <p>&copy; 2019 - UDB 2019</p>
         </div>        
     </div>
 </body>
