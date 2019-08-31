@@ -43,7 +43,17 @@
 			w2ui.grid.autoLoad = auto;
 			w2ui.grid.skip(0);
 		}
-		function crearGrid() {
+		async function crearGrid() {
+			listTrabajadores = await getSessionVarAjaxPromise('ListTrabajadores');
+			let contador = 0;
+			let records = [];
+			for(let i =0; i<listTrabajadores.length;i++){
+				// for(let j =0; j<listTrabajadores[i].ListTrabajos.length;j++){
+
+				// }
+				listTrabajadores[i].Sueldo = listTrabajadores[i].ListTrabajos.length * <?php echo $_SESSION['Remuneracion'];?>;
+				records.push({ recid: 1, empleado: listTrabajadores[i].Nombre, sueldo: listTrabajadores[i].Sueldo})
+			}
 			gridRep1 = $('#gridRep1').w2grid({
 				name: 'grid',
 				header: 'Reporte 1',
@@ -63,9 +73,11 @@
 								// return '<div class="w2ui-buttons"><a href="javascript:verDetalle(' + record.id + ')">Ver detalle</a>';
 							// }
 						// }
-					]
+					],
+					records: records
 			});
 			arrayGrids['gridRep1'] = gridRep1;
+			gridRep1.refresh();
 		}		
 		$(document).ready(function () {
 			if (gridRep1 == null)
