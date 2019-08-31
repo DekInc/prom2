@@ -1,7 +1,8 @@
 <?php
 session_start();
 if(!isset($_SESSION["newsession"])){
-	$_SESSION["trabajos"] = 0;
+	$_SESSION["trabajos"] = 200;
+	$_SESSION["MaxTrabajos"] = 750;
     $_SESSION["CapacidadMax"] = 8;
     $_SESSION["DuracionTarea"] = 2;
     $_SESSION["Remuneracion"] = 10;
@@ -9,7 +10,7 @@ if(!isset($_SESSION["newsession"])){
     $_SESSION["CapacidadMax"] = 8;
     $_SESSION["DuracionTarea"] = 2;
     $_SESSION["Trabajoefectivo"] = 100;
-    $_SESSION["NumeroTrabajadores"] = 0;
+    $_SESSION["NumeroTrabajadores"] = 1;
     $_SESSION["ListTrabajadores"] = '';
 }
 ?>
@@ -32,7 +33,7 @@ if(!isset($_SESSION["newsession"])){
 						<form id="formConfig" action="configSave.php" method="POST">								
 							<div class="row padding-bottom">
 								<div class="col-lg-2 offset-lg-1 padding">
-									N de Trabajos:
+									Trabajos iniciales:
 								</div>
 								<div class="col-lg-2"> 
 									<input type="text" name="numerotrabajos" value="<?php echo $_SESSION['trabajos'];?>"required>
@@ -85,12 +86,12 @@ if(!isset($_SESSION["newsession"])){
 								<div class="col-lg-2"> 
 									<input type="text" name="VelAnimacion" placeholder="Velocidad en miliSegundos" value="<?php echo $_SESSION['VelAnimacion'];?>" required>									
 								</div>
-								<!-- <div class="col-lg-2 offset-lg-1">
-										A definir:
-									</div>
-									<div class="col-lg-2"> 
-										<input type="text" name="CapacidadMaxdiaria" placeholder="%" value="<?php echo $_SESSION[''];?>" required>
-									</div>-->
+								<div class="col-lg-2 offset-lg-1">
+									Max trabajos:
+								</div>
+								<div class="col-lg-2"> 
+									<input type="text" name="txtMaxTrabajos" value="<?php echo $_SESSION['MaxTrabajos'];?>" required>
+								</div>
 							</div> 
 							<div class="row padding-bottom">
 								<div class="col-lg-4 offset-lg-4 text-center">
