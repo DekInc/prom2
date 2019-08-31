@@ -39,9 +39,9 @@
 		public function __construct($Nombre_){
 			$this->Nombre = $Nombre_;
 		}
-		function CalcSalario(){
+		public function CalcSalario(){
 			global $ListTrabajos;			
-			global $ListSalarios;
+			global $ListSalarios;			
 			$ListSalarios = [];
 			for($i = 0; $i < count($ListTrabajos); $i++){
 				$ListSalarios[] = new Salario($ListTrabajos[$i]->Dia.Dia, $_SESSION["Remuneracion"], $ListTrabajos[$i]->Calificacion);

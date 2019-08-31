@@ -168,7 +168,7 @@
 			var months = [];			
 			//var months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];			
 			//listTrabajosXMes.length
-			listTrabajosXMes = await getSessionVarAjaxPromise('ListTrabajosXMes');			
+			listTrabajosXMes = await getSessionVarAjaxPromise('ListTrabajosXMes');
 			for(var i = 1; i < 37; i++)
 				months.push(i);
 			Chart.defaults.global.defaultFontColor = 'black';
@@ -254,7 +254,7 @@
 			$('#btnIniciar').on('click', function(Event){
 				getSessionVarAjax('trabajos', function(data){ 
 					if (data === ''){
-						mensajeApp('Error', 'No se han establecido los parámetros iniciales');
+						mensajeApp('Error', 'No se han establecido los parámetros iniciales de trabajos');
 						return;
 					} else {
 						mensajeApp('Información', 'La configuración inicial es válida, se procede a la simulación');
