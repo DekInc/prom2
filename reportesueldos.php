@@ -47,13 +47,23 @@
 			listTrabajadores = await getSessionVarAjaxPromise('ListTrabajadores');
 			let contador = 0;
 			let records = [];
+			let prom = 0;
+			let SueldoPromedio = 0;
 			for(let i =0; i<listTrabajadores.length;i++){
 				// for(let j =0; j<listTrabajadores[i].ListTrabajos.length;j++){
 
 				// }
+				prom = 0;
 				listTrabajadores[i].Sueldo = listTrabajadores[i].ListTrabajos.length * <?php echo $_SESSION['Remuneracion'];?>;
-				records.push({ recid: 1, empleado: listTrabajadores[i].Nombre, sueldo: listTrabajadores[i].Sueldo})
+				for(let j = 0; j<listTrabajadores[i].ListTrabajos.length;j++){
+					prom += listTrabajadores[i].ListTrabajos[j].Calificacion;
+				}
+				prom = (prom/listTrabajadores[i].ListTrabajos.length).toFixed(2);
+				SueldoPromedio += listTrabajadores[i].Sueldo;
+				records.push({ recid: 1, empleado: listTrabajadores[i].Nombre, trabajos: listTrabajadores[i].ListTrabajos.length, sueldo: listTrabajadores[i].Sueldo, promedio: prom})
 			}
+			SueldoPromedio = (SueldoPromedio/listTrabajadores.length).toFixed(2);
+			console.log(SueldoPromedio);
 			gridRep1 = $('#gridRep1').w2grid({
 				name: 'grid',
 				header: 'Reporte 1',
@@ -67,7 +77,9 @@
 				columns: [
 						{ field: 'recid', caption: 'recid', size: '50px', sortable: true, attr: 'align=center', hidden: true },
 						{ field: 'empleado', caption: 'Empleado', sortable: true, hidden: false, size: '380px' },
-						{ field: 'sueldo', caption: 'Sueldo', sortable: true, hidden: false, size: '80px' }
+						{ field: 'trabajos', caption: 'N trabajos', sortable: true, hidden: false, size: '380px' },
+						{ field: 'sueldo', caption: 'Sueldo', sortable: true, hidden: false, size: '80px' },
+						{ field: 'promedio', caption: 'Cal Promedio', sortable: true, hidden: false, size: '80px' }
 						// {
 							// field: '', caption: '', sortable: true, render: function (record) {
 								// return '<div class="w2ui-buttons"><a href="javascript:verDetalle(' + record.id + ')">Ver detalle</a>';
